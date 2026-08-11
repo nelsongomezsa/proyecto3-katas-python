@@ -1,6 +1,8 @@
 # proyecto 3: katas python
-# cada ejercicio lleva su enunciado como comentario encima
+# comentarios cortos explicando qué hace cada función
 # los ejercicios interactivos quedan como función, se llaman a mano si se quieren probar
+
+from functools import reduce
 
 
 # Kata 1: Escribe una función que reciba una cadena de texto como parámetro
@@ -141,3 +143,30 @@ try:
     print(calcular_promedio([]))
 except ListaVaciaError as error:
     print(error)
+
+
+# Kata 11: Escribe un programa que pida al usuario que introduzca su edad.
+# Si el usuario ingresa un valor no numérico o un valor fuera del rango
+# esperado (por ejemplo, menor que 0 o mayor que 120), maneja las
+# excepciones adecuadamente.
+def pedir_edad():
+    try:
+        edad = int(input("Introduce tu edad: "))
+        if edad < 0 or edad > 120:
+            raise ValueError("la edad debe estar entre 0 y 120")
+    except ValueError as error:
+        print(f"Edad no válida: {error}")
+    else:
+        print(f"Edad registrada: {edad}")
+
+
+# pedir_edad()  # descomentar para probarla a mano
+
+
+# Kata 12: Genera una función que, al recibir una frase, devuelva una lista
+# con la longitud de cada palabra. Usa la función map().
+def longitudes_palabras(frase):
+    return list(map(len, frase.split()))
+
+
+print(longitudes_palabras("hola que tal estas"))
