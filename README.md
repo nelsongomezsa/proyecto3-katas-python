@@ -42,6 +42,10 @@ un rato aparte para entender bien cómo iba acumulando el resultado. Luego
 salieron varias katas seguidas con `reduce` (producto total, concatenar
 palabras, diferencia total) y ya le pillé el truco más rápido.
 
+La de enmascarar la variable (kata 29) tuve que pensarla un poco porque
+primero la hice sin comprobar el caso de que el texto tuviera 4 caracteres
+o menos, y con números cortos me daba resultados raros con `#` de más.
+
 Voy subiendo el trabajo a GitHub en commits por bloques, a medida que
 termino y compruebo que el archivo corre sin errores.
 

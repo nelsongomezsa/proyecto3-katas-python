@@ -300,3 +300,52 @@ print(contar_caracteres("hola que tal"))
 resto_division = lambda a, b: a % b
 
 print(resto_division(17, 5))
+
+
+# Kata 27: Crea una función que calcule el promedio de una lista de
+# números.
+def promedio(numeros):
+    return sum(numeros) / len(numeros)
+
+
+print(promedio([4, 8, 15, 16, 23, 42]))
+
+
+# Kata 28: Crea una función que busque y devuelva el primer elemento
+# duplicado en una lista dada.
+def primer_duplicado(lista):
+    vistos = set()
+    for elemento in lista:
+        if elemento in vistos:
+            return elemento
+        vistos.add(elemento)
+    return None
+
+
+print(primer_duplicado([1, 2, 3, 2, 5]))
+
+
+# Kata 29: Crea una función que convierta una variable en una cadena de
+# texto y enmascare todos los caracteres con el carácter '#' excepto los
+# últimos cuatro.
+def enmascarar(variable):
+    texto = str(variable)
+    # si no llega a 4 caracteres no hay nada que tapar
+    if len(texto) <= 4:
+        return texto
+    return "#" * (len(texto) - 4) + texto[-4:]
+
+
+print(enmascarar(123456789))
+print(enmascarar("clavesecreta"))
+
+
+# Kata 30: Crea una función que determine si dos palabras son anagramas,
+# es decir, si están formadas por las mismas letras pero en diferente
+# orden.
+def son_anagramas(palabra1, palabra2):
+    return sorted(palabra1.lower()) == sorted(palabra2.lower())
+
+
+print(son_anagramas("amor", "roma"))
+print(son_anagramas("hola", "adios"))
