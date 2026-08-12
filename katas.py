@@ -170,3 +170,133 @@ def longitudes_palabras(frase):
 
 
 print(longitudes_palabras("hola que tal estas"))
+
+
+# Kata 13: Genera una función que, para un conjunto de caracteres, devuelva
+# una lista de tuplas con cada letra en mayúsculas y minúsculas. Las letras
+# no pueden estar repetidas. Usa la función map().
+def mayusculas_y_minusculas(caracteres):
+    # set() quita las letras repetidas antes de mapear
+    letras_unicas = set(caracteres)
+    return list(map(lambda letra: (letra.upper(), letra.lower()), letras_unicas))
+
+
+print(mayusculas_y_minusculas("aabbcc"))
+
+
+# Kata 14: Crea una función que retorne las palabras de una lista que
+# comiencen con una letra en específico. Usa la función filter().
+def palabras_que_empiezan_por(palabras, letra):
+    return list(filter(lambda palabra: palabra.startswith(letra), palabras))
+
+
+print(palabras_que_empiezan_por(["casa", "coche", "perro", "cama"], "c"))
+
+
+# Kata 15: Crea una función lambda que sume 3 a cada número de una lista
+# dada.
+sumar_tres_a_todos = lambda numeros: list(map(lambda numero: numero + 3, numeros))
+
+print(sumar_tres_a_todos([1, 2, 3]))
+
+
+# Kata 16: Escribe una función que tome una cadena de texto y un número
+# entero n como parámetros y devuelva una lista de todas las palabras que
+# sean más largas que n. Usa la función filter().
+def palabras_mas_largas_que(texto, n):
+    return list(filter(lambda palabra: len(palabra) > n, texto.split()))
+
+
+print(palabras_mas_largas_que("el perro corre por el parque", 3))
+
+
+# Kata 17: Crea una función que tome una lista de dígitos y devuelva el
+# número correspondiente. Por ejemplo, [5,7,2] corresponde al número 572.
+# Usa la función reduce().
+def digitos_a_numero(digitos):
+    return reduce(lambda acumulado, digito: acumulado * 10 + digito, digitos)
+
+
+print(digitos_a_numero([5, 7, 2]))
+
+
+# Kata 18: Escribe un programa en Python que cree una lista de diccionarios
+# con información de estudiantes (nombre, edad, calificación) y use filter
+# para extraer a los estudiantes con una calificación mayor o igual a 90.
+estudiantes = [
+    {"nombre": "Ana", "edad": 20, "calificacion": 95},
+    {"nombre": "Luis", "edad": 22, "calificacion": 85},
+    {"nombre": "Marta", "edad": 21, "calificacion": 92},
+]
+
+
+def estudiantes_destacados(lista_estudiantes):
+    return list(filter(lambda estudiante: estudiante["calificacion"] >= 90, lista_estudiantes))
+
+
+print(estudiantes_destacados(estudiantes))
+
+
+# Kata 19: Crea una función lambda que filtre los números impares de una
+# lista dada.
+filtrar_impares = lambda numeros: list(filter(lambda numero: numero % 2 != 0, numeros))
+
+print(filtrar_impares([1, 2, 3, 4, 5, 6]))
+
+
+# Kata 20: Para una lista con elementos de tipo integer y string, obtén una
+# nueva lista solo con los valores int. Usa la función filter().
+def solo_enteros(elementos):
+    return list(filter(lambda elemento: isinstance(elemento, int), elementos))
+
+
+print(solo_enteros([1, "dos", 3, "cuatro", 5]))
+
+
+# Kata 21: Crea una función que calcule el cubo de un número dado mediante
+# una función lambda.
+cubo = lambda numero: numero ** 3
+
+print(cubo(3))
+
+
+# Kata 22: Dada una lista numérica, obtén el producto total de los valores.
+# Usa la función reduce().
+def producto_total(numeros):
+    return reduce(lambda acumulado, numero: acumulado * numero, numeros)
+
+
+print(producto_total([1, 2, 3, 4]))
+
+
+# Kata 23: Concatena una lista de palabras. Usa la función reduce().
+def concatenar_palabras(palabras):
+    return reduce(lambda acumulado, palabra: acumulado + " " + palabra, palabras)
+
+
+print(concatenar_palabras(["hola", "que", "tal"]))
+
+
+# Kata 24: Calcula la diferencia total en los valores de una lista. Usa la
+# función reduce().
+def diferencia_total(numeros):
+    return reduce(lambda acumulado, numero: acumulado - numero, numeros)
+
+
+print(diferencia_total([100, 20, 30]))
+
+
+# Kata 25: Crea una función que cuente el número de caracteres en una
+# cadena de texto dada.
+def contar_caracteres(texto):
+    return len(texto)
+
+
+print(contar_caracteres("hola que tal"))
+
+
+# Kata 26: Crea una función lambda que calcule el resto de la división
+# entre dos números dados.
+resto_division = lambda a, b: a % b
+
+print(resto_division(17, 5))
