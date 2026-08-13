@@ -46,6 +46,17 @@ La de enmascarar la variable (kata 29) tuve que pensarla un poco porque
 primero la hice sin comprobar el caso de que el texto tuviera 4 caracteres
 o menos, y con números cortos me daba resultados raros con `#` de más.
 
+Las últimas (31-40) son las que más me costaron, sobre todo las dos clases
+(`Arbol` y `UsuarioBanco`) y `procesar_texto`. Con `UsuarioBanco` me di
+cuenta al probarlo de que, siguiendo el caso de uso tal cual lo dan (Bob
+recibe 20 y luego intenta transferir 80), Bob se queda sin saldo suficiente
+y salta la excepción antes de completar la transferencia — lo dejé así
+porque enseña que el manejo de errores funciona, no lo forcé para que
+saliera bien. En `procesar_texto` lo que más me costó fue entender bien
+cómo repartir los `*args` según la opción elegida (no es lo mismo
+"reemplazar", que necesita dos palabras, que "eliminar", que solo necesita
+una).
+
 Voy subiendo el trabajo a GitHub en commits por bloques, a medida que
 termino y compruebo que el archivo corre sin errores.
 

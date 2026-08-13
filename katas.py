@@ -2,6 +2,7 @@
 # comentarios cortos explicando qué hace cada función
 # los ejercicios interactivos quedan como función, se llaman a mano si se quieren probar
 
+import math
 from functools import reduce
 
 
@@ -349,3 +350,315 @@ def son_anagramas(palabra1, palabra2):
 
 print(son_anagramas("amor", "roma"))
 print(son_anagramas("hola", "adios"))
+
+
+# Kata 31: Crea una función que solicite al usuario ingresar una lista de
+# nombres y luego un nombre para buscar en esa lista. Si el nombre está en
+# la lista, imprime un mensaje indicando que fue encontrado; de lo
+# contrario, lanza una excepción.
+class NombreNoEncontradoError(Exception):
+    pass
+
+
+def buscar_nombre_en_lista():
+    nombres = input("Introduce los nombres separados por comas: ").split(",")
+    nombres = [nombre.strip() for nombre in nombres]
+    nombre_buscado = input("¿Qué nombre quieres buscar? ").strip()
+    if nombre_buscado in nombres:
+        print(f"{nombre_buscado} está en la lista.")
+    else:
+        raise NombreNoEncontradoError(f"{nombre_buscado} no está en la lista.")
+
+
+# buscar_nombre_en_lista()  # descomentar para probarla a mano
+
+
+# Kata 32: Crea una función que tome un nombre completo y una lista de
+# empleados, busque el nombre en la lista y devuelva el puesto del
+# empleado si se encuentra; de lo contrario, devuelve un mensaje
+# indicando que la persona no trabaja aquí.
+empleados = [
+    {"nombre": "Ana Pérez", "puesto": "Desarrolladora"},
+    {"nombre": "Luis Gómez", "puesto": "Diseñador"},
+]
+
+
+def buscar_puesto(nombre_completo, lista_empleados):
+    for empleado in lista_empleados:
+        if empleado["nombre"] == nombre_completo:
+            return empleado["puesto"]
+    return "Esta persona no trabaja aquí."
+
+
+print(buscar_puesto("Ana Pérez", empleados))
+print(buscar_puesto("Pedro Ruiz", empleados))
+
+
+# Kata 33: Crea una función lambda que sume elementos correspondientes de
+# dos listas dadas.
+sumar_listas = lambda lista1, lista2: list(map(lambda a, b: a + b, lista1, lista2))
+
+print(sumar_listas([1, 2, 3], [10, 20, 30]))
+
+
+# Kata 34: Crea la clase Arbol
+# Define un árbol genérico con un tronco y ramas como atributos.
+# Métodos disponibles: crecer_tronco, nueva_rama, crecer_ramas,
+# quitar_rama, info_arbol.
+# Código a seguir:
+# Inicializar un árbol con un tronco de longitud 1 y una lista vacía de
+# ramas.
+# Implementar el método crecer_tronco para aumentar la longitud del
+# tronco en una unidad.
+# Implementar el método nueva_rama para agregar una nueva rama de
+# longitud 1 a la lista de ramas.
+# Implementar el método crecer_ramas para aumentar en una unidad la
+# longitud de todas las ramas existentes.
+# Implementar el método quitar_rama para eliminar una rama en una
+# posición específica.
+# Implementar el método info_arbol para devolver información sobre la
+# longitud del tronco, el número de ramas y sus longitudes.
+# Caso de uso:
+#   a. Crear un árbol.
+#   b. Hacer crecer el tronco una unidad.
+#   c. Añadir una nueva rama.
+#   d. Hacer crecer todas las ramas una unidad.
+#   e. Añadir dos nuevas ramas.
+#   f. Retirar la rama situada en la posición 2.
+#   g. Obtener información sobre el árbol.
+class Arbol:
+    def __init__(self):
+        self.tronco = 1
+        self.ramas = []
+
+    def crecer_tronco(self):
+        self.tronco += 1
+
+    def nueva_rama(self):
+        self.ramas.append(1)
+
+    def crecer_ramas(self):
+        self.ramas = [rama + 1 for rama in self.ramas]
+
+    def quitar_rama(self, posicion):
+        self.ramas.pop(posicion)
+
+    def info_arbol(self):
+        return {
+            "tronco": self.tronco,
+            "numero_ramas": len(self.ramas),
+            "longitud_ramas": self.ramas,
+        }
+
+
+arbol = Arbol()
+arbol.crecer_tronco()
+arbol.nueva_rama()
+arbol.crecer_ramas()
+arbol.nueva_rama()
+arbol.nueva_rama()
+arbol.quitar_rama(2)
+print(arbol.info_arbol())
+
+
+# Kata 35: Crea la clase UsuarioBanco
+# Representa a un usuario de un banco con su nombre, saldo y si tiene o
+# no cuenta corriente.
+# Métodos: retirar_dinero, transferir_dinero, agregar_dinero.
+# Código a seguir:
+# Inicializar un usuario con nombre, saldo y un indicador (True o False)
+# de cuenta corriente.
+# Implementar retirar_dinero para sustraer dinero del saldo, lanzando un
+# error si no es posible.
+# Implementar transferir_dinero para transferir dinero desde otro
+# usuario, lanzando un error en caso de fallo.
+# Implementar agregar_dinero para aumentar el saldo del usuario.
+# Caso de uso:
+#   a. Crear dos usuarios: "Alicia" con saldo inicial de 100 y "Bob" con
+#      saldo inicial de 50, ambos con cuenta corriente.
+#   b. Agregar 20 unidades al saldo de Bob.
+#   c. Transferir 80 unidades de Bob a Alicia.
+#   d. Retirar 50 unidades del saldo de Alicia.
+class SaldoInsuficienteError(Exception):
+    pass
+
+
+class UsuarioBanco:
+    def __init__(self, nombre, saldo, cuenta_corriente):
+        self.nombre = nombre
+        self.saldo = saldo
+        self.cuenta_corriente = cuenta_corriente
+
+    def retirar_dinero(self, cantidad):
+        if cantidad > self.saldo:
+            raise SaldoInsuficienteError(
+                f"{self.nombre} no tiene saldo suficiente para retirar {cantidad}."
+            )
+        self.saldo -= cantidad
+
+    def agregar_dinero(self, cantidad):
+        self.saldo += cantidad
+
+    def transferir_dinero(self, otro_usuario, cantidad):
+        # primero se retira del otro usuario, y solo si eso no falla se
+        # añade al saldo propio
+        otro_usuario.retirar_dinero(cantidad)
+        self.agregar_dinero(cantidad)
+
+
+alicia = UsuarioBanco("Alicia", 100, True)
+bob = UsuarioBanco("Bob", 50, True)
+
+bob.agregar_dinero(20)
+
+try:
+    alicia.transferir_dinero(bob, 80)
+except SaldoInsuficienteError as error:
+    print(error)
+
+alicia.retirar_dinero(50)
+
+print(f"Saldo de Alicia: {alicia.saldo}")
+print(f"Saldo de Bob: {bob.saldo}")
+
+
+# Kata 36: Crea una función llamada procesar_texto
+# Procesa un texto según la opción especificada: contar_palabras,
+# reemplazar_palabras o eliminar_palabra.
+# Código a seguir:
+# Crear una función contar_palabras que cuente el número de veces que
+# aparece cada palabra en el texto y devuelva un diccionario.
+# Crear una función reemplazar_palabras para sustituir una
+# palabra_original por una palabra_nueva en el texto y devolver el texto
+# modificado.
+# Crear una función eliminar_palabra que elimine una palabra del texto y
+# devuelva el texto sin ella.
+# Crear la función procesar_texto que reciba un texto, una opción
+# ("contar", "reemplazar", "eliminar") y un número variable de
+# argumentos según la opción elegida.
+# Caso de uso: verificar el funcionamiento completo de procesar_texto.
+def contar_palabras(texto):
+    conteo = {}
+    for palabra in texto.split():
+        if palabra in conteo:
+            conteo[palabra] += 1
+        else:
+            conteo[palabra] = 1
+    return conteo
+
+
+def reemplazar_palabras(texto, palabra_original, palabra_nueva):
+    return texto.replace(palabra_original, palabra_nueva)
+
+
+def eliminar_palabra(texto, palabra):
+    palabras = [p for p in texto.split() if p != palabra]
+    return " ".join(palabras)
+
+
+def procesar_texto(texto, opcion, *args):
+    if opcion == "contar":
+        return contar_palabras(texto)
+    elif opcion == "reemplazar":
+        return reemplazar_palabras(texto, *args)
+    elif opcion == "eliminar":
+        return eliminar_palabra(texto, *args)
+    else:
+        raise ValueError("Opción no válida.")
+
+
+frase = "el gato persigue al perro y el gato duerme"
+print(procesar_texto(frase, "contar"))
+print(procesar_texto(frase, "reemplazar", "gato", "perro"))
+print(procesar_texto(frase, "eliminar", "gato"))
+
+
+# Kata 37: Genera un programa que nos indique si es de noche, de día o de
+# tarde según la hora proporcionada por el usuario.
+def franja_horaria():
+    hora = int(input("Introduce la hora (0-23): "))
+    if 6 <= hora < 12:
+        print("Es de día.")
+    elif 12 <= hora < 20:
+        print("Es de tarde.")
+    else:
+        print("Es de noche.")
+
+
+# franja_horaria()  # descomentar para probarla a mano
+
+
+# Kata 38: Escribe un programa que determine qué calificación en texto
+# tiene un alumno según su calificación numérica.
+# Reglas:
+#   0 - 69: insuficiente
+#   70 - 79: bien
+#   80 - 89: muy bien
+#   90 - 100: excelente
+def calificacion_en_texto(nota):
+    if nota < 70:
+        return "insuficiente"
+    elif nota < 80:
+        return "bien"
+    elif nota < 90:
+        return "muy bien"
+    else:
+        return "excelente"
+
+
+print(calificacion_en_texto(65))
+print(calificacion_en_texto(75))
+print(calificacion_en_texto(85))
+print(calificacion_en_texto(95))
+
+
+# Kata 39: Escribe una función que tome dos parámetros: figura (una
+# cadena que puede ser "rectangulo", "circulo" o "triangulo") y datos
+# (una tupla con los datos necesarios para calcular el área de la
+# figura).
+def calcular_area(figura, datos):
+    if figura == "rectangulo":
+        base, altura = datos
+        return base * altura
+    elif figura == "circulo":
+        radio, = datos
+        return math.pi * radio ** 2
+    elif figura == "triangulo":
+        base, altura = datos
+        return (base * altura) / 2
+    else:
+        raise ValueError("Figura no reconocida.")
+
+
+print(calcular_area("rectangulo", (4, 5)))
+print(calcular_area("circulo", (3,)))
+print(calcular_area("triangulo", (6, 2)))
+
+
+# Kata 40: Escribe un programa en Python que utilice condicionales para
+# determinar el monto final de una compra en una tienda en línea,
+# después de aplicar un descuento. El programa debe:
+#   a. Solicitar al usuario el precio original de un artículo.
+#   b. Preguntar si tiene un cupón de descuento (respuesta sí o no).
+#   c. Si la respuesta es sí, solicitar el valor del cupón de descuento.
+#   d. Aplicar el descuento al precio original, siempre que el valor del
+#      cupón sea válido (mayor a cero).
+#   e. Mostrar el precio final de la compra, considerando o no el
+#      descuento.
+#   f. Usar estructuras de control de flujo (if, elif, else) para llevar
+#      a cabo las acciones.
+def calcular_compra_con_descuento():
+    precio = float(input("Introduce el precio original del artículo: "))
+    tiene_cupon = input("¿Tienes un cupón de descuento? (si/no): ").strip().lower()
+    if tiene_cupon == "si":
+        descuento = float(input("Introduce el valor del descuento: "))
+        if descuento > 0:
+            precio_final = precio - descuento
+        else:
+            precio_final = precio
+    else:
+        precio_final = precio
+    print(f"El precio final de la compra es: {precio_final}")
+
+
+# calcular_compra_con_descuento()  # descomentar para probarla a mano
