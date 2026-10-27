@@ -1,5 +1,9 @@
 # Proyecto 3 - Katas Python
 
+![Python](https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white)
+
+> **English summary:** 40 solved Python katas from the Master's in Data & Analytics: built-in types, lists, dictionaries, sets, lambdas, `map`/`filter`/`reduce`, recursion, exceptions (including a custom one) and simple classes. Everything runs with `python3 katas.py`.
+
 Aquí van las katas del Proyecto 3. Todo está en un solo archivo, `katas.py`,
 porque son ejercicios sueltos y no tenía sentido montar una carpeta por cada
 uno.
@@ -67,3 +71,9 @@ termino y compruebo que el archivo corre sin errores.
 - Condicionales y bucles.
 - Funciones normales, lambdas y una recursiva (el factorial).
 - Manejo de excepciones, incluyendo una excepción propia (`ListaVaciaError`).
+
+## Autor
+
+**Nelson Gómez Sánchez** · Estudiante de DAM y del Máster en Data & Analytics · [nelsongomezsa.github.io](https://nelsongomezsa.github.io)
+
+Licencia [MIT](LICENSE).
