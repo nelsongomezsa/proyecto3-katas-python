@@ -3,3 +3,9 @@ __pycache__/
 .idea/
 .vscode/
 .DS_Store
+
+# Configuración local de herramientas: no se versiona
+.claude/
+CLAUDE.md
+.codex/
+AGENTS.md
